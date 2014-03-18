@@ -1,0 +1,11 @@
+language: python
+python:
+  - "2.7"
+# command to install dependencies
+virtualenv:
+  system_site_packages: true
+# install requirements
+before_install:
+  - sudo apt-get install -qq libatlas3gf-base libatlas-dev liblapack-dev gfortran zlib1g-dev libhdf5-serial-dev python-numpy python-scipy
+# command to run tests
+script: nosetests
