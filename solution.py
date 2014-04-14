@@ -61,6 +61,7 @@ def execute_search(data_location):
     while query is not "":
         query = raw_input(QUERY_INPUT_MESSAGE)
         search_results = repository.search_books(query)
+
         print search_results
 
 
