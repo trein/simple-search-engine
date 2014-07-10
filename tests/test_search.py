@@ -1,5 +1,8 @@
 import unittest
 import numpy as np
+import sys
+
+sys.path.append('lib')
 from search import Index
 from search import Indexable
 from search import IndexableResult

@@ -57,18 +57,18 @@ The current implementation follows [Google Style Python]
 (http://google-styleguide.googlecode.com/svn/trunk/pyguide.html).
 
 #### Contents:
- - `src/search.py`: Module containing search implementation
- - `src/test_search.py`: Module containing search unit tests
- - `src/book.py`: Module containing search abstraction for the context of books
- - `src/test_book.py`: Module containing books search unit tests
+ - `lib/search.py`: Module containing search implementation
+ - `lib/book.py`: Module containing search abstraction for the context of books
+ - `tests/test_search.py`: Module containing search unit tests
+ - `tests/test_book.py`: Module containing books search unit tests
  - `solution.py`: Command line interface for books search
 
 #### Running the application
     $ python solution.py --data "./data/title_author.tab.txt"
 
 #### Running the unit tests
-    $ python src/test_search.py
-    $ python src/test_book.py
+    $ python tests/test_search.py
+    $ python tests/test_book.py
 
 #### Comments
 The current implementation proposes a general framework for indexing and ranking documents. The classes `SearchEngine`, `Index`, `TfidfRank`, `Indexable` and `IndexableResult` are not limited to the context of books and can be used in other applications.

@@ -29,13 +29,16 @@ Example:
 """
 import optparse
 import logging
-from src import book
+from lib import book
+
+DEBUG = False
 
 # Log initialization
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+log_level = logging.DEBUG if DEBUG else logging.INFO
+logging.basicConfig(
+    level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
-CATALOG_FILENAME = "./data/min_title_author.tab.txt"
-# CATALOG_FILENAME = "./data/title_author.tab.txt"
+CATALOG_FILENAME = "./data/min_title_author.tab.txt" if DEBUG else "./data/title_author.tab.txt"
 QUERY_INPUT_MESSAGE = "Enter a query, or hit enter to quit: "
 
 

@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
+import os
 import numpy as np
 import scipy.sparse as sp
 import logging
 from collections import defaultdict
+
+
+current_path = os.path.dirname(os.path.realpath(__file__))
+STOP_WORDS_FILENAME = os.path.join(current_path, "stop_words.txt")
 
 
 class Indexable(object):
@@ -318,8 +323,6 @@ class SearchEngine(object):
 
     """
 
-    _STOP_WORDS_FILENAME = "./src/stop_words.txt"
-
     def __init__(self):
         self.objects = []
         self.stop_words = self.__load_stop_words()
@@ -338,7 +341,7 @@ class SearchEngine(object):
 
         """
         stop_words = {}
-        with open(self._STOP_WORDS_FILENAME) as stop_words_file:
+        with open(STOP_WORDS_FILENAME) as stop_words_file:
             for word in stop_words_file:
                 stop_words[word.strip()] = True
         return stop_words
@@ -350,7 +353,6 @@ class SearchEngine(object):
           indexable (Indexable): Object to be added to index.
 
         """
-        next_position = len(self.objects)
         self.objects.append(indexable)
 
     def start(self):
