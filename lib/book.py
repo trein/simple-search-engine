@@ -1,28 +1,10 @@
 # -*- coding: utf-8 -*-
-import time
 import re
 import unicodedata
 import logging
+from util import timed
 from search import Indexable
 from search import SearchEngine
-
-
-def timed(fn):
-    """Decorator used to benchmark functions runtime.
-
-    """
-
-    def wrapped(*arg, **kw):
-        ts = time.time()
-        result = fn(*arg, **kw)
-        te = time.time()
-
-        logging.info("[Benchmark] Function = %s, Time = %2.2f sec" \
-              % (fn.__name__, (te - ts)))
-
-        return result
-
-    return wrapped
 
 
 class Book(Indexable):
