@@ -24,7 +24,7 @@ The columns are `id`, `title`, `author`, so in this case:
 Your solution should output something similar to the following, but does not need to be exactly the same:
 
 ```
-$ python solution.py
+$ python book_index.py
 Creating index ...
 Done creating index, 1284903 docs in index
 Enter a query, or hit enter to quit
