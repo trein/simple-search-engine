@@ -21,7 +21,7 @@ The columns are `id`, `title`, `author`, so in this case:
 `id -> 800 title -> The plays author -> Oscar Wilde`
 
 ### Sample Output
-Your solution should output something similar to the following, but does not need to be exactly the same:
+The solution should output something similar to the following, but does not need to be exactly the same:
 
 ```
 $ python book_index.py
@@ -47,7 +47,6 @@ Enter a query, or hit enter to quit
 You may write your solution in either Python, Java, C#, C, or C++. If you need to make any assumptions in your code, clearly document them in the comments. On startup, your code should read the given data file, then prompt the user for queries in a loop (reading from stdin), outputting the search results in a reasonable text format.
 
 ### Solution
-
 The proposed problems were solved using Python `v2.7.5` the following libraries:
 
 - numpy `v1.6.2`: (matrices operations and other utilities)
