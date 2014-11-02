@@ -71,9 +71,9 @@ def execute_search(data_location):
 if __name__ == '__main__':
     parser = optparse.OptionParser()
     parser.add_option('-d', '--data',
-                      dest="data",
-                      help="Location of the data file that will be indexed",
-                      default=CATALOG_FILENAME)
+                        dest="data",
+                        help="Location of the data file that will be indexed",
+                        default=CATALOG_FILENAME)
 
     options, args = parser.parse_args()
     execute_search(options.data)
