@@ -7,39 +7,41 @@ containing books' information. The result is displayed on STDOUT and outputs
 the top 10 matches ordered by their tf*idf scores.
 
 Example:
-    $ python solution.py --data "./data/title_author.tab.txt"
+    $ python solution.py --data './data/title_author.tab.txt'
 
-    [Main] Loading books...
-    [Book] Loading books from file...
-    [Search] Start search engine (Indexing | Ranking)...
-    [Ranking] Vocabulary assembled with terms count 230885
-    [Ranking] Starting tf computation...
-    [Ranking] Starting tf-idf computation...
-    [Ranking] Starting tf-idf norm computation...
-    [Index] Building index...
-    [Benchmark] Function = load_books, Time = 406.88 sec
-    [Main] Done loading books, 1284904 docs in index
+    book_index Loading books...
+    book Loading books from file...
+    search Start search engine (Indexing | Ranking)...
+    search Vocabulary assembled with terms count 230885
+    search Starting tf computation...
+    search Starting tf-idf computation...
+    search Starting tf-idf norm computation...
+    search Building index...
+    search Function = load_books, Time = 406.88 sec
+    book_index Done loading books, 1284904 docs in index
 
     Enter a query, or hit enter to quit: Alys Eyre Macklin Greuze
-    [Benchmark] Function = search_books, Time = 0.63 sec
+    util Function = search_books, Time = 0.63 sec
     score: 32.6460707315, id: 1277695, title: Greuze, author: Alys Eyre Macklin
     score: 32.6460707315, id: 570698, title: Greuze, author: Alys Eyre Macklin
     ...
 
 """
+import sys
 import optparse
 import logging
-from lib import book
+sys.path.append('lib')
+import book
 
-DEBUG = False
+DEBUG = True
 
 # Log initialization
 log_level = logging.DEBUG if DEBUG else logging.INFO
-logging.basicConfig(
-    level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+log_format = '%(asctime)s - %(levelname)s - %(module)s : %(lineno)d - %(message)s'
+logging.basicConfig(level=log_level, format=log_format)
+logger = logging.getLogger(__name__)
 
-CATALOG_FILENAME = "./data/min_title_author.tab.txt" if DEBUG else "./data/title_author.tab.txt"
-QUERY_INPUT_MESSAGE = "Enter a query, or hit enter to quit: "
+CATALOG_FILENAME = 'data/min_title_author.tab.txt' if DEBUG else 'data/title_author.tab.txt'
 
 
 def execute_search(data_location):
@@ -55,14 +57,14 @@ def execute_search(data_location):
     """
     query = None
     repository = book.BookInventory(data_location)
-    logging.info("[Main] Loading books...")
+    logger.info('Loading books...')
 
     repository.load_books()
     docs_number = repository.books_count()
-    logging.info("[Main] Done loading books, %d docs in index", docs_number)
+    logger.info('Done loading books, %d docs in index', docs_number)
 
-    while query is not "":
-        query = raw_input(QUERY_INPUT_MESSAGE)
+    while query is not '':
+        query = raw_input('Enter a query, or hit enter to quit: ')
         search_results = repository.search_books(query)
 
         print search_results
@@ -71,9 +73,9 @@ def execute_search(data_location):
 if __name__ == '__main__':
     parser = optparse.OptionParser()
     parser.add_option('-d', '--data',
-                        dest="data",
-                        help="Location of the data file that will be indexed",
-                        default=CATALOG_FILENAME)
+                      dest='data',
+                      help='Location of the data file that will be indexed',
+                      default=CATALOG_FILENAME)
 
     options, args = parser.parse_args()
     execute_search(options.data)

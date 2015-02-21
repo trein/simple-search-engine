@@ -14,7 +14,7 @@ class BookInventoryTests(unittest.TestCase):
         """
         Setup inventory that will be subjected to the tests.
         """
-        self.inventory = BookInventory("./tests/test_title_author.tab.txt")
+        self.inventory = BookInventory('./tests/test_title_author.tab.txt')
 
     def test_inventory_data_loading(self):
         """
