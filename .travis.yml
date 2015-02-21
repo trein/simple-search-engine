@@ -6,6 +6,15 @@ virtualenv:
   system_site_packages: true
 # install requirements
 before_install:
-  - sudo apt-get install -qq libatlas3gf-base libatlas-dev liblapack-dev gfortran zlib1g-dev libhdf5-serial-dev python-numpy python-scipy
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libatlas-dev libatlas-base-dev liblapack-dev gfortran
+  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  - chmod +x miniconda.sh
+  - ./miniconda.sh -b
+  - export PATH=/home/travis/miniconda/bin:$PATH
+  - conda update --yes conda
+  - travis_retry conda install --yes python=$TRAVIS_PYTHON_VERSION pip numpy scipy
+install:
+  - travis_retry pip install -r requirements.txt
 # command to run tests
 script: nosetests
