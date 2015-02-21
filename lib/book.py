@@ -7,6 +7,9 @@ from search import Indexable
 from search import SearchEngine
 
 
+logger = logging.getLogger(__name__)
+
+
 class Book(Indexable):
     """Class encapsulating a specific behavior of indexed books.
 
@@ -28,7 +31,7 @@ class Book(Indexable):
         self.author = author
 
     def __repr__(self):
-        return "id: %s, title: %s, author: %s" % \
+        return 'id: %s, title: %s, author: %s' % \
                (self.iid, self.title, self.author)
 
 
@@ -40,11 +43,11 @@ class BookDataPreprocessor(object):
     _EXTRA_SPACE_REGEX = re.compile(r'\s+', re.IGNORECASE)
     _SPECIAL_CHAR_REGEX = re.compile(
         # detect punctuation characters
-        r'(?P<p>(\.+)|(\?+)|(!+)|(:+)|(;+)|'
+        r"(?P<p>(\.+)|(\?+)|(!+)|(:+)|(;+)|"
         # detect special characters
-        r'(\(+)|(\)+)|(\}+)|(\{+)|("+)|(-+)|(\[+)|(\]+)|'
+        r"(\(+)|(\)+)|(\}+)|(\{+)|('+)|(-+)|(\[+)|(\]+)|"
         # detect commas NOT between numbers
-        r'(?<!\d)(,+)(?!=\d)|(\$+))')
+        r"(?<!\d)(,+)(?!=\d)|(\$+))")
 
     def preprocess(self, entry):
         """Preprocess an entry to a sanitized format.
@@ -64,7 +67,7 @@ class BookDataPreprocessor(object):
         """
         f_entry = entry.lower()
         f_entry = f_entry.replace('\t', '|').strip()
-        f_entry = self.strip_accents(unicode(f_entry, "utf-8"))
+        f_entry = self.strip_accents(unicode(f_entry, 'utf-8'))
         f_entry = self._SPECIAL_CHAR_REGEX.sub(' ', f_entry)
         f_entry = self._EXTRA_SPACE_REGEX.sub(' ', f_entry)
 
@@ -91,7 +94,7 @@ class BookInventory(object):
     _BOOK_META_ID_INDEX = 0
     _BOOK_META_TITLE_INDEX = 1
     _BOOK_META_AUTHOR_INDEX = 2
-    _NO_RESULTS_MESSAGE = "Sorry, no results."
+    _NO_RESULTS_MESSAGE = 'Sorry, no results.'
 
     def __init__(self, filename):
         self.filename = filename
@@ -106,7 +109,7 @@ class BookInventory(object):
         effectively large files.
 
         """
-        logging.info("[Book] Loading books from file...")
+        logger.info('Loading books from file...')
         processor = BookDataPreprocessor()
         with open(self.filename) as catalog:
             for entry in catalog:
@@ -144,7 +147,7 @@ class BookInventory(object):
             result = self.engine.search(query, n_results)
 
         if len(result) > 0:
-            return "\n".join([str(indexable) for indexable in result])
+            return '\n'.join([str(indexable) for indexable in result])
         return self._NO_RESULTS_MESSAGE
 
     def books_count(self):

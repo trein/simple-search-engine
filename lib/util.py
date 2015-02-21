@@ -2,6 +2,9 @@ import time
 import logging
 
 
+logger = logging.getLogger(__name__)
+
+
 def timed(fn):
     """Decorator used to benchmark functions runtime.
 
@@ -12,8 +15,8 @@ def timed(fn):
         result = fn(*arg, **kw)
         te = time.time()
 
-        logging.info("[Benchmark] Function = %s, Time = %2.2f sec" \
-              % (fn.__name__, (te - ts)))
+        logger.info('[Benchmark] Function = %s, Time = %2.2f sec' \
+                    % (fn.__name__, (te - ts)))
 
         return result
 
